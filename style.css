@@ -1,0 +1,354 @@
+/* ============================================================
+   Hotel Booking Analytics — Portfolio Website Styles
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #ffffff;
+  --surface:   #f7f8fa;
+  --border:    #e5e7eb;
+  --text:      #1f2328;
+  --muted:     #57606a;
+  --accent:    #2563eb;
+  --accent2:   #7c3aed;
+  --danger:    #dc2626;
+  --success:   #16a34a;
+  --warning:   #d97706;
+  --radius:    10px;
+  --shadow:    0 1px 4px rgba(0,0,0,.08);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.nav-brand {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: .875rem;
+  font-weight: 500;
+  transition: color .15s;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -.5px;
+  margin-bottom: .75rem;
+}
+
+.hero p {
+  max-width: 640px;
+  margin: 0 auto 1.5rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .5rem;
+  margin-bottom: 2rem;
+}
+
+.badge {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .25rem .8rem;
+  font-size: .8rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+.badge.blue  { border-color: #93c5fd; color: #1d4ed8; background: #eff6ff; }
+.badge.green { border-color: #86efac; color: #15803d; background: #f0fdf4; }
+.badge.purple{ border-color: #c4b5fd; color: #6d28d9; background: #f5f3ff; }
+
+.btn-row { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .6rem 1.4rem;
+  border-radius: 8px;
+  font-size: .9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity .15s;
+}
+.btn:hover { opacity: .85; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-outline  { border: 1.5px solid var(--border); color: var(--text); background: var(--bg); }
+
+/* ── LAYOUT ───────────────────────────────────────────────── */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
+section:last-child { border-bottom: none; }
+
+.section-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.section-title .icon { font-size: 1.4rem; }
+
+/* ── KPI CARDS ────────────────────────────────────────────── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.kpi-card .label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: .35rem;
+}
+
+.kpi-card .value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.15;
+}
+
+.kpi-card .sub {
+  font-size: .8rem;
+  color: var(--muted);
+  margin-top: .25rem;
+}
+
+.kpi-card.accent-blue  { border-left: 4px solid var(--accent); }
+.kpi-card.accent-red   { border-left: 4px solid var(--danger); }
+.kpi-card.accent-green { border-left: 4px solid var(--success); }
+.kpi-card.accent-orange{ border-left: 4px solid var(--warning); }
+.kpi-card.accent-purple{ border-left: 4px solid var(--accent2); }
+
+/* ── CHART BARS (pure CSS/SVG-free bar charts) ────────────── */
+.bar-chart { width: 100%; }
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .55rem;
+  font-size: .85rem;
+}
+
+.bar-label { width: 130px; flex-shrink: 0; color: var(--text); font-weight: 500; }
+.bar-label.wide { width: 180px; }
+
+.bar-track {
+  flex: 1;
+  background: var(--border);
+  border-radius: 4px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--accent);
+  transition: width .4s ease;
+}
+
+.bar-fill.red    { background: var(--danger); }
+.bar-fill.green  { background: var(--success); }
+.bar-fill.orange { background: var(--warning); }
+.bar-fill.purple { background: var(--accent2); }
+
+.bar-val { width: 56px; flex-shrink: 0; font-weight: 600; color: var(--muted); text-align: right; font-size: .82rem; }
+
+/* ── TWO-COLUMN LAYOUT ────────────────────────────────────── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 680px) {
+  .two-col { grid-template-columns: 1fr; }
+  .bar-label { width: 90px; }
+  .bar-label.wide { width: 110px; }
+  .nav-links { display: none; }
+  .hero h1  { font-size: 1.6rem; }
+}
+
+/* ── TABLES ───────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .875rem;
+}
+
+th {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  padding: .6rem .9rem;
+  text-align: left;
+  font-weight: 700;
+  color: var(--muted);
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+td {
+  padding: .55rem .9rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--surface); }
+
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.tag { display: inline-block; padding: .15rem .55rem; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+.tag.red    { background: #fef2f2; color: var(--danger); }
+.tag.green  { background: #f0fdf4; color: var(--success); }
+.tag.orange { background: #fffbeb; color: var(--warning); }
+
+/* ── INSIGHT CARDS ────────────────────────────────────────── */
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.insight-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+}
+
+.insight-card .ins-head {
+  font-weight: 700;
+  font-size: .95rem;
+  margin-bottom: .5rem;
+}
+
+.insight-card .ins-stat {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: .5rem;
+}
+
+.insight-card .ins-body {
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── DATASET SECTION ──────────────────────────────────────── */
+.dataset-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+  font-size: .9rem;
+}
+
+@media (max-width: 600px) { .dataset-box { grid-template-columns: 1fr; } }
+
+.dataset-box dt { font-weight: 700; color: var(--muted); font-size: .8rem; text-transform: uppercase; margin-bottom: .15rem; }
+.dataset-box dd { color: var(--text); margin-bottom: .75rem; }
+.dataset-box a  { color: var(--accent); text-decoration: none; }
+.dataset-box a:hover { text-decoration: underline; }
+
+/* ── FILE STRUCTURE ───────────────────────────────────────── */
+.file-tree {
+  background: #0d1117;
+  color: #c9d1d9;
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: .82rem;
+  line-height: 2;
+  overflow-x: auto;
+}
+
+.file-tree .dir  { color: #79c0ff; }
+.file-tree .note { color: #8b949e; font-style: italic; }
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: .8rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}

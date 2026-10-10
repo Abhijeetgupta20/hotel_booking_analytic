@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Booking Analytics — Portfolio Project</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════════════════ -->
+<nav>
+  <a class="nav-brand" href="#">🏨 Hotel Booking Analytics</a>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#kpis">KPIs</a></li>
+    <li><a href="#cancellations">Cancellations</a></li>
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#insights">Insights</a></li>
+    <li><a href="#dataset">Dataset</a></li>
+    <li><a href="#project">Project</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <h1>Hotel Booking Analytics</h1>
+  <p>
+    A real-data analytics project exploring reservation trends, cancellation drivers,
+    room assignments and business KPIs across 87,224 hotel bookings
+    (July 2015 – August 2017).
+  </p>
+
+  <div class="badge-row">
+    <span class="badge blue">Python · Pandas · NumPy</span>
+    <span class="badge blue">SQLite · SQL</span>
+    <span class="badge green">95 Unit Tests Passing</span>
+    <span class="badge green">CC0 Public Domain Dataset</span>
+    <span class="badge purple">Streamlit Dashboard</span>
+    <span class="badge purple">Plotly Charts</span>
+  </div>
+
+  <div class="btn-row">
+    <a class="btn btn-primary" href="https://github.com/YOUR_USERNAME/hotel-booking-analytics" target="_blank" rel="noopener">
+      &#128196; View on GitHub
+    </a>
+    <a class="btn btn-outline" href="#insights">&#128270; See Insights</a>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 1 — OVERVIEW KPI CARDS
+════════════════════════════════════════════════════════════ -->
+<section id="overview">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">📊</span> Key Numbers at a Glance</h2>
+    <p style="color:var(--muted);margin-bottom:1.5rem;font-size:.9rem;">
+      All figures computed from the cleaned dataset (87,224 rows). Raw dataset had 119,390 rows;
+      32,166 rows removed during cleaning (26.9%).
+    </p>
+
+    <div class="kpi-grid">
+
+      <div class="kpi-card accent-blue">
+        <div class="label">Total Bookings</div>
+        <div class="value">87,224</div>
+        <div class="sub">After cleaning · Jul 2015 – Aug 2017</div>
+      </div>
+
+      <div class="kpi-card accent-green">
+        <div class="label">Check-Out (Confirmed)</div>
+        <div class="value">63,219</div>
+        <div class="sub">72.48% of all bookings</div>
+      </div>
+
+      <div class="kpi-card accent-red">
+        <div class="label">Cancelled</div>
+        <div class="value">22,992</div>
+        <div class="sub">26.36% narrow cancel rate</div>
+      </div>
+
+      <div class="kpi-card accent-orange">
+        <div class="label">No-Show</div>
+        <div class="value">1,013</div>
+        <div class="sub">1.16% of all bookings</div>
+      </div>
+
+      <div class="kpi-card accent-blue">
+        <div class="label">Avg Lead Time</div>
+        <div class="value">80 days</div>
+        <div class="sub">Cancelled avg: 106 days</div>
+      </div>
+
+      <div class="kpi-card accent-green">
+        <div class="label">Avg Length of Stay</div>
+        <div class="value">3.52 nights</div>
+        <div class="sub">Confirmed, non-zero stays</div>
+      </div>
+
+      <div class="kpi-card accent-purple">
+        <div class="label">Avg Daily Rate (ADR)</div>
+        <div class="value">$104.66</div>
+        <div class="sub">Paid stays, excl. complimentary</div>
+      </div>
+
+      <div class="kpi-card accent-orange">
+        <div class="label">Room Mismatch Rate</div>
+        <div class="value">14.89%</div>
+        <div class="sub">12,989 bookings reassigned</div>
+      </div>
+
+      <div class="kpi-card accent-green">
+        <div class="label">Total Room-Nights</div>
+        <div class="value">220,255</div>
+        <div class="sub">Confirmed stays only</div>
+      </div>
+
+      <div class="kpi-card accent-blue">
+        <div class="label">Avg Guests / Booking</div>
+        <div class="value">1.98</div>
+        <div class="sub">Adults + children + babies</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 2 — CANCELLATION ANALYSIS
+════════════════════════════════════════════════════════════ -->
+<section id="cancellations">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">❌</span> Cancellation Analysis</h2>
+
+    <div class="two-col">
+
+      <!-- By hotel type -->
+      <div>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">
+          BROAD CANCEL RATE BY HOTEL TYPE
+        </h3>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label">City Hotel</span>
+            <div class="bar-track"><div class="bar-fill red" data-w="30.09"></div></div>
+            <span class="bar-val">30.09%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Resort Hotel</span>
+            <div class="bar-track"><div class="bar-fill red" data-w="23.48"></div></div>
+            <span class="bar-val">23.48%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Overall</span>
+            <div class="bar-track"><div class="bar-fill orange" data-w="27.52"></div></div>
+            <span class="bar-val">27.52%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- By market segment -->
+      <div>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">
+          CANCEL RATE BY MARKET SEGMENT
+        </h3>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label">Online TA</span>
+            <div class="bar-track"><div class="bar-fill red" data-w="35.38"></div></div>
+            <span class="bar-val">35.38%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Groups</span>
+            <div class="bar-track"><div class="bar-fill red" data-w="27.07"></div></div>
+            <span class="bar-val">27.07%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Aviation</span>
+            <div class="bar-track"><div class="bar-fill orange" data-w="19.91"></div></div>
+            <span class="bar-val">19.91%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Offline TA/TO</span>
+            <div class="bar-track"><div class="bar-fill green" data-w="14.85"></div></div>
+            <span class="bar-val">14.85%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Direct</span>
+            <div class="bar-track"><div class="bar-fill green" data-w="14.74"></div></div>
+            <span class="bar-val">14.74%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Corporate</span>
+            <div class="bar-track"><div class="bar-fill green" data-w="12.12"></div></div>
+            <span class="bar-val">12.12%</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /two-col -->
+
+    <!-- Lead time comparison -->
+    <div style="margin-top:2.5rem;">
+      <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">
+        LEAD TIME: CONFIRMED vs CANCELLED BOOKINGS
+      </h3>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <span class="bar-label">Confirmed stays</span>
+          <div class="bar-track"><div class="bar-fill green" data-w="18.9"></div></div>
+          <span class="bar-val">70.2 days</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Cancelled / No-Show</span>
+          <div class="bar-track"><div class="bar-fill red" data-w="28.5"></div></div>
+          <span class="bar-val">105.8 days</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">All bookings</span>
+          <div class="bar-track"><div class="bar-fill" data-w="21.6"></div></div>
+          <span class="bar-val">80.0 days</span>
+        </div>
+      </div>
+      <p style="margin-top:.75rem;font-size:.82rem;color:var(--muted);">
+        ⚑ Cancelled bookings are made on average <strong>35.6 days earlier</strong> than confirmed ones.
+        Long lead time is a measurable early-warning signal for cancellation risk.
+      </p>
+    </div>
+
+    <!-- Special requests table -->
+    <div style="margin-top:2.5rem;">
+      <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">
+        SPECIAL REQUESTS vs CANCEL RATE — more requests = more committed guest
+      </h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Special Requests</th>
+              <th class="num">Bookings</th>
+              <th class="num">Cancellations</th>
+              <th class="num">Cancel Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td class="num">43,788</td><td class="num">14,561</td><td class="num"><span class="tag red">33.25%</span></td></tr>
+            <tr><td>1</td><td class="num">28,973</td><td class="num">6,498</td><td class="num"><span class="tag orange">22.43%</span></td></tr>
+            <tr><td>2</td><td class="num">11,793</td><td class="num">2,514</td><td class="num"><span class="tag orange">21.32%</span></td></tr>
+            <tr><td>3</td><td class="num">2,314</td><td class="num">396</td><td class="num"><span class="tag green">17.11%</span></td></tr>
+            <tr><td>4</td><td class="num">320</td><td class="num">34</td><td class="num"><span class="tag green">10.63%</span></td></tr>
+            <tr><td>5</td><td class="num">36</td><td class="num">2</td><td class="num"><span class="tag green">5.56%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 3 — KPI DEEP DIVE
+════════════════════════════════════════════════════════════ -->
+<section id="kpis">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">📈</span> KPI Deep Dive</h2>
+
+    <div class="two-col">
+
+      <!-- Monthly bookings summary table -->
+      <div>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">
+          MONTHLY BOOKING VOLUME (ALL YEARS COMBINED)
+        </h3>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label">August</span>
+            <div class="bar-track"><div class="bar-fill purple" data-w="100"></div></div>
+            <span class="bar-val">11,238</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">July</span>
+            <div class="bar-track"><div class="bar-fill purple" data-w="89.3"></div></div>
+            <span class="bar-val">10,042</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">May</span>
+            <div class="bar-track"><div class="bar-fill" data-w="74.2"></div></div>
+            <span class="bar-val">8,344</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">April</span>
+            <div class="bar-track"><div class="bar-fill" data-w="70.3"></div></div>
+            <span class="bar-val">7,900</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">March</span>
+            <div class="bar-track"><div class="bar-fill" data-w="66.6"></div></div>
+            <span class="bar-val">7,488</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">June</span>
+            <div class="bar-track"><div class="bar-fill" data-w="69.0"></div></div>
+            <span class="bar-val">7,756</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">October</span>
+            <div class="bar-track"><div class="bar-fill" data-w="61.6"></div></div>
+            <span class="bar-val">6,921</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">September</span>
+            <div class="bar-track"><div class="bar-fill" data-w="59.4"></div></div>
+            <span class="bar-val">6,682</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">February</span>
+            <div class="bar-track"><div class="bar-fill" data-w="54.1"></div></div>
+            <span class="bar-val">6,083</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">December</span>
+            <div class="bar-track"><div class="bar-fill" data-w="45.5"></div></div>
+            <span class="bar-val">5,112</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">November</span>
+            <div class="bar-track"><div class="bar-fill" data-w="44.2"></div></div>
+            <span class="bar-val">4,973</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">January</span>
+            <div class="bar-track"><div class="bar-fill" data-w="41.7"></div></div>
+            <span class="bar-val">4,685</span>
+          </div>
+        </div>
+        <p style="margin-top:.6rem;font-size:.8rem;color:var(--muted);">Peak: August (11,238) · Low: January (4,685)</p>
+      </div>
+
+      <!-- ADR by year -->
+      <div>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">
+          AVERAGE DAILY RATE (ADR) — TREND BY YEAR
+        </h3>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label">City 2015</span>
+            <div class="bar-track"><div class="bar-fill green" data-w="18.8"></div></div>
+            <span class="bar-val">$95.57</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">City 2016</span>
+            <div class="bar-track"><div class="bar-fill green" data-w="21.2"></div></div>
+            <span class="bar-val">$108.14</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">City 2017</span>
+            <div class="bar-track"><div class="bar-fill green" data-w="23.8"></div></div>
+            <span class="bar-val">$121.35</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Resort 2015</span>
+            <div class="bar-track"><div class="bar-fill orange" data-w="18.5"></div></div>
+            <span class="bar-val">$94.25</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Resort 2016</span>
+            <div class="bar-track"><div class="bar-fill orange" data-w="17.3"></div></div>
+            <span class="bar-val">$87.92</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Resort 2017</span>
+            <div class="bar-track"><div class="bar-fill orange" data-w="20.9"></div></div>
+            <span class="bar-val">$106.63</span>
+          </div>
+        </div>
+        <p style="margin-top:.6rem;font-size:.8rem;color:var(--muted);">City Hotel ADR grew 27% from 2015→2017. Paid stays only (zero-ADR complimentary excluded).</p>
+
+        <!-- Top countries -->
+        <h3 style="font-size:.95rem;font-weight:700;margin:1.75rem 0 1rem;color:var(--muted);">
+          TOP 5 GUEST ORIGIN COUNTRIES
+        </h3>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label">Portugal (PRT)</span>
+            <div class="bar-track"><div class="bar-fill purple" data-w="100"></div></div>
+            <span class="bar-val">27,350</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">UK (GBR)</span>
+            <div class="bar-track"><div class="bar-fill" data-w="38.1"></div></div>
+            <span class="bar-val">10,423</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">France (FRA)</span>
+            <div class="bar-track"><div class="bar-fill" data-w="32.3"></div></div>
+            <span class="bar-val">8,823</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Spain (ESP)</span>
+            <div class="bar-track"><div class="bar-fill" data-w="26.5"></div></div>
+            <span class="bar-val">7,244</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Germany (DEU)</span>
+            <div class="bar-track"><div class="bar-fill" data-w="19.7"></div></div>
+            <span class="bar-val">5,385</span>
+          </div>
+        </div>
+        <p style="margin-top:.6rem;font-size:.8rem;color:var(--muted);">Hotels are located in Portugal — domestic guests dominate at 31.4% of all bookings.</p>
+      </div>
+
+    </div><!-- /two-col -->
+
+    <!-- Yearly trend table -->
+    <div style="margin-top:2.5rem;">
+      <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">
+        YEARLY BOOKING TRENDS (2015 IS PARTIAL — DATA STARTS JULY 2015)
+      </h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th class="num">Total Bookings</th>
+              <th class="num">Cancellations</th>
+              <th class="num">Cancel Rate</th>
+              <th class="num">Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2015</td><td class="num">13,279</td><td class="num">2,699</td><td class="num"><span class="tag green">20.33%</span></td><td style="font-size:.8rem;color:var(--muted);">Jul–Dec only</td></tr>
+            <tr><td>2016</td><td class="num">42,313</td><td class="num">11,200</td><td class="num"><span class="tag orange">26.47%</span></td><td style="font-size:.8rem;color:var(--muted);">Full year</td></tr>
+            <tr><td>2017</td><td class="num">31,632</td><td class="num">10,106</td><td class="num"><span class="tag red">31.95%</span></td><td style="font-size:.8rem;color:var(--muted);">Jan–Aug only</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 4 — ROOM ANALYSIS
+════════════════════════════════════════════════════════════ -->
+<section id="rooms">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">🛏️</span> Room Category &amp; Mismatch Analysis</h2>
+
+    <div class="two-col">
+
+      <!-- Room demand -->
+      <div>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">
+          ROOM TYPE DEMAND (% OF TOTAL BOOKINGS)
+        </h3>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label">Type A</span>
+            <div class="bar-track"><div class="bar-fill" data-w="64.70"></div></div>
+            <span class="bar-val">64.70%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Type D</span>
+            <div class="bar-track"><div class="bar-fill" data-w="19.92"></div></div>
+            <span class="bar-val">19.92%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Type E</span>
+            <div class="bar-track"><div class="bar-fill" data-w="6.92"></div></div>
+            <span class="bar-val">6.92%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Type F</span>
+            <div class="bar-track"><div class="bar-fill" data-w="3.23"></div></div>
+            <span class="bar-val">3.23%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Type G</span>
+            <div class="bar-track"><div class="bar-fill" data-w="2.35"></div></div>
+            <span class="bar-val">2.35%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Others (B/C/H/L)</span>
+            <div class="bar-track"><div class="bar-fill orange" data-w="2.88"></div></div>
+            <span class="bar-val">2.88%</span>
+          </div>
+        </div>
+        <p style="margin-top:.6rem;font-size:.8rem;color:var(--muted);">Room Type A accounts for nearly two-thirds of all bookings.</p>
+      </div>
+
+      <!-- Mismatch -->
+      <div>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">
+          ROOM MISMATCH — RESERVED vs ASSIGNED
+        </h3>
+
+        <div class="kpi-grid" style="grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem;">
+          <div class="kpi-card accent-orange" style="padding:.9rem 1.1rem;">
+            <div class="label">Mismatch Rate</div>
+            <div class="value" style="font-size:1.4rem;">14.89%</div>
+            <div class="sub">12,989 of 87,224 bookings</div>
+          </div>
+          <div class="kpi-card accent-green" style="padding:.9rem 1.1rem;">
+            <div class="label">Of Mismatches: Upgrades</div>
+            <div class="value" style="font-size:1.4rem;">95.31%</div>
+            <div class="sub">12,380 upgrades</div>
+          </div>
+          <div class="kpi-card accent-red" style="padding:.9rem 1.1rem;">
+            <div class="label">Of Mismatches: Downgrades</div>
+            <div class="value" style="font-size:1.4rem;">4.69%</div>
+            <div class="sub">609 downgrades</div>
+          </div>
+          <div class="kpi-card accent-purple" style="padding:.9rem 1.1rem;">
+            <div class="label">Repeat Guest Cancel Rate</div>
+            <div class="value" style="font-size:1.4rem;">7.73%</div>
+            <div class="sub">vs 28.31% first-timers</div>
+          </div>
+        </div>
+
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.75rem;color:var(--muted);">
+          MISMATCH RATE BY HOTEL TYPE
+        </h3>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label">Resort Hotel</span>
+            <div class="bar-track"><div class="bar-fill orange" data-w="20.64"></div></div>
+            <span class="bar-val">20.64%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">City Hotel</span>
+            <div class="bar-track"><div class="bar-fill" data-w="11.23"></div></div>
+            <span class="bar-val">11.23%</span>
+          </div>
+        </div>
+        <p style="margin-top:.6rem;font-size:.8rem;color:var(--muted);">Resort Hotel reassigns rooms nearly twice as often as City Hotel.</p>
+      </div>
+
+    </div><!-- /two-col -->
+
+    <!-- Room cancel rate table -->
+    <div style="margin-top:2.5rem;">
+      <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">
+        ROOM TYPE DEMAND AND CANCELLATION RATE
+      </h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Room Type</th>
+              <th class="num">Total Bookings</th>
+              <th class="num">Confirmed</th>
+              <th class="num">Cancelled</th>
+              <th class="num">% of Total</th>
+              <th class="num">Cancel Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>A</td><td class="num">56,434</td><td class="num">41,752</td><td class="num">14,682</td><td class="num">64.70%</td><td class="num"><span class="tag green">26.02%</span></td></tr>
+            <tr><td>D</td><td class="num">17,376</td><td class="num">12,141</td><td class="num">5,235</td><td class="num">19.92%</td><td class="num"><span class="tag orange">30.13%</span></td></tr>
+            <tr><td>E</td><td class="num">6,036</td><td class="num">4,390</td><td class="num">1,646</td><td class="num">6.92%</td><td class="num"><span class="tag orange">27.27%</span></td></tr>
+            <tr><td>F</td><td class="num">2,820</td><td class="num">1,969</td><td class="num">851</td><td class="num">3.23%</td><td class="num"><span class="tag orange">30.18%</span></td></tr>
+            <tr><td>G</td><td class="num">2,050</td><td class="num">1,313</td><td class="num">737</td><td class="num">2.35%</td><td class="num"><span class="tag red">35.95%</span></td></tr>
+            <tr><td>B</td><td class="num">992</td><td class="num">679</td><td class="num">313</td><td class="num">1.14%</td><td class="num"><span class="tag red">31.55%</span></td></tr>
+            <tr><td>C</td><td class="num">914</td><td class="num">618</td><td class="num">296</td><td class="num">1.05%</td><td class="num"><span class="tag red">32.39%</span></td></tr>
+            <tr><td>H</td><td class="num">596</td><td class="num">353</td><td class="num">243</td><td class="num">0.68%</td><td class="num"><span class="tag red">40.77%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 5 — INSIGHTS
+════════════════════════════════════════════════════════════ -->
+<section id="insights">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">💡</span> Business Insights</h2>
+    <p style="color:var(--muted);margin-bottom:1.5rem;font-size:.9rem;">
+      All insights below are derived directly from computed KPIs — no manual interpretation or fabricated figures.
+    </p>
+
+    <div class="insight-grid">
+
+      <div class="insight-card">
+        <div class="ins-head">1 — More Than a Quarter of Bookings Are Lost</div>
+        <div class="ins-stat">27.52%</div>
+        <div class="ins-body">
+          24,005 out of 87,224 bookings did not result in a completed stay.
+          22,992 were pre-arrival cancellations; 1,013 were no-shows.
+          One in four bookings produces no revenue.
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="ins-head">2 — City Hotel Cancels 6.6 pp More Than Resort</div>
+        <div class="ins-stat">28.69% vs 22.70%</div>
+        <div class="ins-body">
+          City Hotel (narrow cancel rate) vs Resort Hotel.
+          The 6.6 pp gap on 53,270 City Hotel bookings represents
+          roughly 3,190 additional lost bookings compared to the Resort rate.
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="ins-head">3 — Online TA: Most Volume, Highest Cancellation</div>
+        <div class="ins-stat">59.1% vol · 35.38% cancel</div>
+        <div class="ins-body">
+          Online TAs drive 51,552 bookings (59.1%) but cancel at 35.38%.
+          Direct bookings cancel at only 14.74%. Shifting 5% of OTA to
+          direct would save an estimated 532 cancellations per year.
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="ins-head">4 — Cancelled Bookings Made 35 Days Earlier</div>
+        <div class="ins-stat">105.8 days vs 70.2 days</div>
+        <div class="ins-body">
+          Average lead time for cancelled bookings vs confirmed stays.
+          Long lead time is a measurable, early-warning signal.
+          Bookings over 90 days out are at significantly higher cancellation risk.
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="ins-head">5 — Repeat Guests Cancel at Less Than ⅓ the Rate</div>
+        <div class="ins-stat">7.73% vs 28.31%</div>
+        <div class="ins-body">
+          Repeat guest broad cancel rate vs first-time guests — a 20.58 pp gap.
+          Only 3.9% of guests (3,363) are repeat visitors. Increasing this
+          share would meaningfully stabilise confirmed bookings.
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="ins-head">6 — Resort Reassigns Rooms Almost Twice as Often</div>
+        <div class="ins-stat">20.64% vs 11.23%</div>
+        <div class="ins-body">
+          Resort Hotel vs City Hotel mismatch rate. 95.31% of mismatches
+          are upgrades — but 609 guests (4.69%) received a downgrade,
+          representing a real service-quality risk.
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="ins-head">7 — August Is Both Busiest and Riskiest Month</div>
+        <div class="ins-stat">11,238 bookings · 32.19% cancel</div>
+        <div class="ins-body">
+          August is the single busiest month and simultaneously has
+          one of the highest cancellation rates. Overbooking strategies
+          must account for this combined pressure.
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="ins-head">8 — More Requests = Fewer Cancellations</div>
+        <div class="ins-stat">33.25% → 5.56%</div>
+        <div class="ins-body">
+          Cancel rate drops from 33.25% (0 special requests) to 5.56%
+          (5 requests). More special requests signal a more committed guest —
+          a useful feature for cancellation-risk modelling.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 6 — DATASET
+════════════════════════════════════════════════════════════ -->
+<section id="dataset">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">🗄️</span> Dataset</h2>
+
+    <div class="dataset-box">
+      <div>
+        <dt>Name</dt>
+        <dd>Hotel Booking Demand</dd>
+      </div>
+      <div>
+        <dt>Authors</dt>
+        <dd>Nuno Antonio, Ana de Almeida, Luis Nunes</dd>
+      </div>
+      <div>
+        <dt>Published</dt>
+        <dd><em>Data in Brief</em>, Vol. 22, 2019</dd>
+      </div>
+      <div>
+        <dt>DOI</dt>
+        <dd><a href="https://doi.org/10.1016/j.dib.2018.11.126" target="_blank" rel="noopener">doi.org/10.1016/j.dib.2018.11.126</a></dd>
+      </div>
+      <div>
+        <dt>Kaggle Mirror</dt>
+        <dd><a href="https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand" target="_blank" rel="noopener">kaggle.com/datasets/jessemostipak/hotel-booking-demand</a></dd>
+      </div>
+      <div>
+        <dt>License</dt>
+        <dd>CC0 1.0 — Public Domain (free to use for any purpose)</dd>
+      </div>
+      <div>
+        <dt>Raw Rows</dt>
+        <dd>119,390 hotel reservations</dd>
+      </div>
+      <div>
+        <dt>Rows After Cleaning</dt>
+        <dd>87,224 (32,166 removed — 26.9%)</dd>
+      </div>
+      <div>
+        <dt>Columns</dt>
+        <dd>32 features (booking dates, guest counts, room types, cancellations, ADR…)</dd>
+      </div>
+      <div>
+        <dt>Date Range</dt>
+        <dd>July 2015 – August 2017</dd>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 7 — PROJECT STRUCTURE
+════════════════════════════════════════════════════════════ -->
+<section id="project">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">📁</span> Project Structure &amp; How to Run</h2>
+
+    <div class="two-col">
+      <div>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">FOLDER STRUCTURE</h3>
+        <div class="file-tree">
+<span class="dir">hotel_booking_analytics/</span>
+├── <span class="dir">data/raw/</span>         <span class="note">← hotel_bookings.csv (not in Git)</span>
+├── <span class="dir">data/processed/</span>   <span class="note">← cleaned CSV + report</span>
+├── <span class="dir">db/</span>               <span class="note">← SQLite database (not in Git)</span>
+├── <span class="dir">dashboard/</span>
+│   └── app.py            <span class="note">← Streamlit + Plotly</span>
+├── <span class="dir">docs/</span>
+│   ├── dataset_info.md
+│   └── business_insights_report.md
+├── <span class="dir">notebooks/</span>        <span class="note">← Jupyter EDA notebooks</span>
+├── <span class="dir">outputs/</span>          <span class="note">← 23 PNG charts</span>
+├── <span class="dir">sql/</span>              <span class="note">← 14 SQL query files</span>
+├── <span class="dir">src/</span>
+│   ├── data_loader.py
+│   ├── data_cleaning.py
+│   ├── eda.py
+│   ├── db_setup.py
+│   ├── run_sql_analysis.py
+│   ├── kpi_calculator.py
+│   └── generate_report.py
+├── <span class="dir">tests/</span>            <span class="note">← 95 unit tests (all pass)</span>
+├── requirements.txt
+└── README.md
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--muted);">HOW TO RUN</h3>
+        <div class="file-tree" style="font-size:.8rem;line-height:1.85;">
+<span class="note"># 1. Install dependencies</span>
+pip install -r requirements.txt
+
+<span class="note"># 2. Place hotel_bookings.csv in data/raw/</span>
+<span class="note">#    (download from Kaggle — link above)</span>
+
+<span class="note"># 3. Clean the dataset</span>
+python src/data_cleaning.py
+
+<span class="note"># 4. Generate EDA charts</span>
+python src/eda.py
+
+<span class="note"># 5. Build SQLite database</span>
+python src/db_setup.py
+
+<span class="note"># 6. Run SQL analysis + cross-checks</span>
+python src/run_sql_analysis.py
+
+<span class="note"># 7. Generate business report</span>
+python src/generate_report.py
+
+<span class="note"># 8. Launch interactive dashboard</span>
+streamlit run dashboard/app.py
+
+<span class="note"># 9. Run all 95 unit tests</span>
+python -m pytest tests/ -v
+        </div>
+
+        <div style="margin-top:1.25rem;">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.75rem;color:var(--muted);">TECH STACK</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+            <span class="badge blue">Python 3.13</span>
+            <span class="badge blue">Pandas 3.x</span>
+            <span class="badge blue">NumPy 2.x</span>
+            <span class="badge blue">SQLite3</span>
+            <span class="badge purple">Streamlit</span>
+            <span class="badge purple">Plotly</span>
+            <span class="badge green">Matplotlib</span>
+            <span class="badge green">Seaborn</span>
+            <span class="badge green">pytest</span>
+          </div>
+        </div>
+
+        <div style="margin-top:1.25rem;">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.75rem;color:var(--muted);">TEST RESULTS</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Test File</th><th class="num">Tests</th><th class="num">Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>test_data_cleaning.py</td><td class="num">27</td><td class="num"><span class="tag green">PASS</span></td></tr>
+                <tr><td>test_data_loader.py</td><td class="num">3</td><td class="num"><span class="tag green">PASS</span></td></tr>
+                <tr><td>test_db_setup.py</td><td class="num">24</td><td class="num"><span class="tag green">PASS</span></td></tr>
+                <tr><td>test_kpi_calculator.py</td><td class="num">44</td><td class="num"><span class="tag green">PASS</span></td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td class="num">95</td><td class="num"><span class="tag green">ALL PASS</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div><!-- /two-col -->
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer>
+  <p>
+    Hotel Booking Analytics &mdash; College Data Analytics Project &mdash;
+    Dataset: CC0 Public Domain &mdash;
+    Built with Python · Pandas · SQLite · Streamlit · Plotly
+  </p>
+  <p style="margin-top:.35rem;">
+    &copy; <span id="current-year"></span> &mdash; All analysis figures are computed from the real Hotel Booking Demand dataset.
+  </p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
